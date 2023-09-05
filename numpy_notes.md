@@ -13,4 +13,13 @@ Example:
 ```python
 import numpy as np
 zeros_array = np.zeros((3, 4))
+```
+
+```
+import numpy as np
+ones_array = np.ones((2, 3))
+```
+
+
+
 
