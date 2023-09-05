@@ -20,6 +20,38 @@ import numpy as np
 ones_array = np.ones((2, 3))
 ```
 
+```
+import numpy as np
+identity_matrix = np.eye(3)
+```
+
+```
+import numpy as np
+evenly_spaced = np.linspace(0, 1, 5)
+```
+
+```
+import matplotlib.pyplot as plt
+plt.imshow(image_array, cmap='gray')
+plt.title('Sample Image')
+plt.show()
+```
+
+```import matplotlib.pyplot as plt
+plt.plot(x_values, y_values, marker='o', linestyle='--', color='b', label='Data')
+plt.xlabel('X-axis')
+plt.ylabel('Y-axis')
+plt.title('Line Plot')
+plt.legend()
+plt.show()
+```
+
+
+
+
+
+
+
 
 
 
