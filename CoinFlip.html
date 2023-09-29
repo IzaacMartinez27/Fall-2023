@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip</title>
+    <style>
+        #coin {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #000;
+            transform-origin: center;
+        }
+
+        .side {
+            display: none;
+            text-anchor: middle;
+            alignment-baseline: middle;
+            font-size: 24px;
+        }
+
+        .tails text {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <svg id="coin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <!-- Heads Side -->
+        <g class="side heads">
+            <circle cx="50" cy="50" r="45" fill="#ccc"/>
+            <text x="50" y="50" fill="black">Heads</text>
+        </g>
+        <!-- Tails Side -->
+        <g class="side tails">
+            <circle cx="50" cy="50" r="45" fill="#999"/>
+            <text x="50" y="50" fill="white">Tails</text>
+        </g>
+    </svg>
+
+    <button onclick="flipCoin()">Flip Coin</button>
+
+    <script>
+        function flipCoin() {
+            const coin = document.getElementById('coin');
+            const sides = document.querySelectorAll('.side');
+
+            // Randomly decide if it's heads or tails
+            const isHeads = Math.random() >= 0.5;
+
+            // Reset previous transforms
+            coin.style.transform = '';
+
+            // Animate the coin flip
+            const numberOfFlips = Math.floor(Math.random() * 5) + 3; // 3 to 7 flips
+            const rotation = isHeads ? 360 * numberOfFlips : 360 * numberOfFlips + 180;
+
+            // Use CSS transition for flip animation
+            coin.style.transition = 'transform 1s';
+            coin.style.transform = `rotateY(${rotation}deg)`;
+
+            // After the animation completes, show the final side
+            setTimeout(() => {
+                sides.forEach(side => side.style.display = 'none');
+                sides[isHeads ? 0 : 1].style.display = 'block';
+            }, 1000); // Wait for 1 second (animation duration)
+        }
+    </script>
+</body>
+</html>
