@@ -1,172 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        .light {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Weekly Calendar&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: Arial, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.calendar {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e0e0e0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.day {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-right: 1px solid #e0e0e0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.day:last-child {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-right: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.day h3 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #e0e0e0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.event {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.event-time {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.event-color {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.event-details {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.event-details &gt; * {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="event-details"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="mon"&gt; Mon&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="tue"&gt; Tue&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="wed"&gt; Wed&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="thu"&gt; Thu&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="fri"&gt; Fri&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="sat"&gt; Sat&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label&gt;&lt;input type="checkbox" id="sun"&gt; Sun&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="time" id="eventTime"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="color" id="eventColor"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="eventText" placeholder="Enter event..."&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="addEvent()"&gt;Add Event&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="calendar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="mon"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Monday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="tue"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Tuesday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="wed"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Wednesday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="thu"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Thursday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="fri"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Friday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="sat"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Saturday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="day" data-day="sun"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3&gt;Sunday&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function to12HourFormat(time24) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [hour, minute] = time24.split(':');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return [1 + (hour - 1) % 12 || 12, minute].join(':') + (hour &gt;= 12 ? ' PM' : ' AM');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addEvent() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const eventText = document.getElementById("eventText").value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let eventTime = document.getElementById("eventTime").value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const eventColor = document.getElementById("eventColor").value;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (eventTime) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>eventTime = to12HourFormat(eventTime);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (eventText &amp;&amp; eventTime) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>days.forEach(day =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const checkbox = document.getElementById(day);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (checkbox.checked) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const dayDiv = document.querySelector(`.day[data-day=${day}]`);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const eventDiv = document.createElement("div");</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>eventDiv.className = "event";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const timeSpan = document.createElement("span");</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>timeSpan.className = "event-time";</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>timeSpan.innerText = eventTime;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>eventDiv.appendChild(timeSpan);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const colorSpan = document.createElement("span");</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>colorSpan.className = "event-color";</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>colorSpan.style.backgroundColor = eventColor;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>eventDiv.appendChild(colorSpan);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const textSpan = document.createElement("span");</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>textSpan.innerText = eventText;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>eventDiv.appendChild(textSpan);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>dayDiv.appendChild(eventDiv);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>// Clear the input fields after adding the event</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById("eventText").value = "";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById("eventTime").value = "";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const checkboxes = document.querySelectorAll(".event-details input[type='checkbox']");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>checkboxes.forEach(cb =&gt; cb.checked = false);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<div>
+    <input type="text" id="task-input" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+</div>
+<ul id="todo-list">
+    <!-- Tasks will be added here -->
+</ul>
+
+<script>
+    function addTask() {
+        const taskInput = document.getElementById('task-input');
+        const taskValue = taskInput.value.trim();
+
+        if (taskValue) {
+            const taskItem = document.createElement('li');
+
+            taskItem.innerHTML = `
+                <svg width="20" height="20" class="light red" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="15" fill="#FF0000"/>
+                </svg>
+                ${taskValue}
+                <span class="delete-btn" onclick="deleteTask(this)">❌</span>
+            `;
+
+            document.getElementById('todo-list').appendChild(taskItem);
+            taskInput.value = ''; // Clear input
+        }
+    }
+
+    function deleteTask(deleteBtn) {
+        const taskItem = deleteBtn.parentElement;
+        taskItem.parentNode.removeChild(taskItem);
+    }
+
+    document.getElementById('todo-list').addEventListener('click', function(e) {
+        if (e.target && e.target.tagName === 'circle') {
+            const circle = e.target;
+            if (circle.getAttribute('fill') === '#FF0000') {
+                circle.setAttribute('fill', '#00FF00');
+            } else if (circle.getAttribute('fill') === '#00FF00') {
+                circle.setAttribute('fill', '#FF0000');
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
