@@ -48,11 +48,11 @@ X_test = X_test[:, None, :, :] / 255
 X.shape
 
 montage_plot(X[125:150, 0, :, :])
-
+'''
 
 ## part 2: Run random y=mx model on MNIST
 
-
+'''
 # Reshape data
 X = X.reshape(X.shape[0], 784)
 X_test = X_test.reshape(X_test.shape[0], 784)
@@ -74,11 +74,11 @@ M = GPU(np.random.rand(10, 784))
 y = M @ x
 y = torch.argmax(y, 0)
 accuracy = torch.sum((y == Y[0:batch_size])) / batch_size
-
+'''
 
 ## Part 3: Train Random Walk Model to at Least 75% Accuracy
 
-
+'''
 m_best = 0
 acc_best = 0
 
@@ -93,3 +93,4 @@ for i in range(100000):
         print(acc.item())
         m_best = m
         acc_best = acc
+'''
