@@ -50,6 +50,7 @@ X.shape
 montage_plot(X[125:150, 0, :, :])
 
 
+## part 2: Run random y=mx model on MNIST
 
 
 # Reshape data
@@ -75,7 +76,7 @@ y = torch.argmax(y, 0)
 accuracy = torch.sum((y == Y[0:batch_size])) / batch_size
 
 
-
+## Part 3: Train Random Walk Model to at Least 75% Accuracy
 
 
 m_best = 0
