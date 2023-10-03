@@ -47,8 +47,8 @@ X_test = X_test[:, None, :, :] / 255
 
 X.shape
 
-montage_plot(X[125:150, 0, :, :])```
-
+montage_plot(X[125:150, 0, :, :])
+```
 
 ## part 2: Run random y=mx model on MNIST
 
