@@ -47,12 +47,12 @@ X_test = X_test[:, None, :, :] / 255
 
 X.shape
 
-montage_plot(X[125:150, 0, :, :])
-'''
+montage_plot(X[125:150, 0, :, :])'''
+
 
 ## part 2: Run random y=mx model on MNIST
 
-'''
+'''python
 # Reshape data
 X = X.reshape(X.shape[0], 784)
 X_test = X_test.reshape(X_test.shape[0], 784)
@@ -78,7 +78,7 @@ accuracy = torch.sum((y == Y[0:batch_size])) / batch_size
 
 ## Part 3: Train Random Walk Model to at Least 75% Accuracy
 
-'''
+'''python
 m_best = 0
 acc_best = 0
 
