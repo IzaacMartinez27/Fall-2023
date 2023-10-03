@@ -59,7 +59,7 @@ X.shape
 montage_plot(X[125:150, 0, :, :])
 ```
 
-## part 2: Run random y=mx model on MNIST
+## Part 2: Run random y=mx model on MNIST
 
 ```python
 # Reshape data
