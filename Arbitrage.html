@@ -35,8 +35,8 @@
             const odds2 = americanToDecimal(parseFloat(document.getElementById("odds2").value));
             const profit = parseFloat(document.getElementById("profit").value);
 
-            const bet1 = (profit / odds1) / (1 + (1 / odds1 + 1 / odds2));
-            const bet2 = (profit / odds2) / (1 + (1 / odds1 + 1 / odds2));
+            const bet1 = (odds2 * profit) / (odds2 * odds1 + odds1 * profit + odds2 * profit);
+            const bet2 = (odds1 * profit) / (odds2 * odds1 + odds1 * profit + odds2 * profit);
 
             const resultElement = document.getElementById("result");
             resultElement.innerHTML = `You should bet $${bet1.toFixed(2)} on the first outcome and $${bet2.toFixed(2)} on the second outcome.`;
