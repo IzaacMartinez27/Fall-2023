@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Budget Tracker</h1>
+    </header>
+    <main>
+        <section id="income-form">
+            <h2>Enter Your Monthly Net Income</h2>
+            <form id="income-input-form">
+                <label for="income-amount">Monthly Income:</label>
+                <input type="number" id="income-amount" name="income-amount" required>
+                <button type="submit">Calculate Budget</button>
+            </form>
+        </section>
+        <section id="budget-details" style="display:none;">
+            <h2>Budget Details</h2>
+            <p>Needs (50%): <span id="needs-amount">$0.00</span></p>
+            <p>Savings (20%): <span id="savings-amount">$0.00</span></p>
+            <p>Wants (30%): <span id="wants-amount">$0.00</span></p>
+        </section>
+        <section id="expense-form" style="display:none;">
+            <h2>Add Expense</h2>
+            <form id="expense-input-form">
+                <label for="expense-category">Expense Category:</label>
+                <select id="expense-category" name="expense-category">
+                    <option value="needs">Needs</option>
+                    <option value="savings">Savings</option>
+                    <option value="wants">Wants</option>
+                </select>
+
+                <label for="expense-name">Expense Name:</label>
+                <input type="text" id="expense-name" name="expense-name" required>
+
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" name="expense-amount" required>
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+        <section id="expense-list">
+            <h2>Expense List</h2>
+            <ul>
+                <!-- Expense items will be dynamically added here -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Budget Tracker</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const incomeForm = document.querySelector("#income-input-form");
+            const budgetDetails = document.querySelector("#budget-details");
+            const expenseForm = document.querySelector("#expense-form form");
+            const expenseList = document.querySelector("#expense-list ul");
+
+            let monthlyIncome = 0;
+            let needsBudget = 0;
+            let savingsBudget = 0;
+            let wantsBudget = 0;
+
+            incomeForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                monthlyIncome = parseFloat(document.querySelector("#income-amount").value);
+                if (!isNaN(monthlyIncome) && monthlyIncome > 0) {
+                    calculateBudget();
+                }
+            });
+
+            expenseForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const expenseCategory = document.querySelector("#expense-category").value;
+                const expenseName = document.querySelector("#expense-name").value;
+                const expenseAmount = parseFloat(document.querySelector("#expense-amount").value);
+
+                if (expenseCategory && expenseName && !isNaN(expenseAmount) && expenseAmount > 0) {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${expenseCategory.toUpperCase()}: ${expenseName} - $${expenseAmount.toFixed(2)}`;
+                    expenseList.appendChild(listItem);
+
+                    // Deduct the expense from the corresponding budget category
+                    if (expenseCategory === "needs") {
+                        needsBudget -= expenseAmount;
+                    } else if (expenseCategory === "savings") {
+                        savingsBudget -= expenseAmount;
+                    } else if (expenseCategory === "wants") {
+                        wantsBudget -= expenseAmount;
+                    }
+
+                    calculateBudget();
+                    // You can add code here to store the expense data in a database.
+                }
+            });
+
+            function calculateBudget() {
+                needsBudget = (monthlyIncome * 0.5).toFixed(2);
+                savingsBudget = (monthlyIncome * 0.2).toFixed(2);
+                wantsBudget = (monthlyIncome * 0.3).toFixed(2);
+
+                document.querySelector("#needs-amount").textContent = `$${needsBudget}`;
+                document.querySelector("#savings-amount").textContent = `$${savingsBudget}`;
+                document.querySelector("#wants-amount").textContent = `$${wantsBudget}`;
+
+                budgetDetails.style.display = "block";
+                expenseForm.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
