@@ -43,15 +43,12 @@
             const odds2Sportsbook2 = americanToDecimal(parseFloat(document.getElementById("odds2-sportsbook2").value));
             const budget = parseFloat(document.getElementById("budget").value);
 
-            const totalInvestment = (budget / (odds1Sportsbook1 + odds2Sportsbook2 + odds1Sportsbook2 + odds2Sportsbook1));
-            const bet1Sportsbook1 = totalInvestment * (odds1Sportsbook1 / (odds1Sportsbook1 + odds2Sportsbook2));
-            const bet2Sportsbook1 = totalInvestment * (odds2Sportsbook2 / (odds1Sportsbook1 + odds2Sportsbook2));
-            const bet1Sportsbook2 = totalInvestment * (odds1Sportsbook2 / (odds1Sportsbook2 + odds2Sportsbook1));
-            const bet2Sportsbook2 = totalInvestment * (odds2Sportsbook1 / (odds1Sportsbook2 + odds2Sportsbook1));
+            const bet1Sportsbook1 = (budget * odds2Sportsbook2) / (odds1Sportsbook1 * odds2Sportsbook2 + odds2Sportsbook2 * odds1Sportsbook2 + odds1Sportsbook1 * budget);
+            const bet2Sportsbook2 = (budget * odds1Sportsbook2) / (odds1Sportsbook1 * odds2Sportsbook2 + odds2Sportsbook2 * odds1Sportsbook2 + odds1Sportsbook1 * budget);
 
-            const profitSportsbook1 = bet1Sportsbook1 * odds1Sportsbook1 - totalInvestment;
-            const profitSportsbook2 = bet2Sportsbook2 * odds2Sportsbook2 - totalInvestment;
-
+            const profitSportsbook1 = bet1Sportsbook1 * odds1Sportsbook1 - budget;
+            const profitSportsbook2 = bet2Sportsbook2 * odds2Sportsbook2 - budget;
+            
             const totalProfit = profitSportsbook1 + profitSportsbook2;
 
             const resultElement = document.getElementById("result");
