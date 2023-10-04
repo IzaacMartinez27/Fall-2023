@@ -7,11 +7,17 @@
 </head>
 <body>
     <h1>Arbitrage Betting Calculator</h1>
-    <label for="odds1">Odds for the first outcome (American format):</label>
-    <input type="number" id="odds1" step="0.01"><br>
+    <label for="odds1-sportsbook1">Odds for the first outcome on Sportsbook 1 (American format):</label>
+    <input type="number" id="odds1-sportsbook1" step="0.01"><br>
 
-    <label for="odds2">Odds for the second outcome (American format):</label>
-    <input type="number" id="odds2" step="0.01"><br>
+    <label for="odds2-sportsbook1">Odds for the second outcome on Sportsbook 1 (American format):</label>
+    <input type="number" id="odds2-sportsbook1" step="0.01"><br>
+
+    <label for="odds1-sportsbook2">Odds for the first outcome on Sportsbook 2 (American format):</label>
+    <input type="number" id="odds1-sportsbook2" step="0.01"><br>
+
+    <label for="odds2-sportsbook2">Odds for the second outcome on Sportsbook 2 (American format):</label>
+    <input type="number" id="odds2-sportsbook2" step="0.01"><br>
 
     <label for="profit">Desired profit:</label>
     <input type="number" id="profit" value="100"><br>
@@ -31,15 +37,17 @@
                 return 1;
             };
 
-            const odds1 = americanToDecimal(parseFloat(document.getElementById("odds1").value));
-            const odds2 = americanToDecimal(parseFloat(document.getElementById("odds2").value));
+            const odds1Sportsbook1 = americanToDecimal(parseFloat(document.getElementById("odds1-sportsbook1").value));
+            const odds2Sportsbook1 = americanToDecimal(parseFloat(document.getElementById("odds2-sportsbook1").value));
+            const odds1Sportsbook2 = americanToDecimal(parseFloat(document.getElementById("odds1-sportsbook2").value));
+            const odds2Sportsbook2 = americanToDecimal(parseFloat(document.getElementById("odds2-sportsbook2").value));
             const profit = parseFloat(document.getElementById("profit").value);
 
-            const bet1 = (odds2 * profit) / (odds2 * odds1 + odds1 * profit + odds2 * profit);
-            const bet2 = (odds1 * profit) / (odds2 * odds1 + odds1 * profit + odds2 * profit);
+            const bet1 = (profit / (odds1Sportsbook1 * odds2Sportsbook2 + odds1Sportsbook2 * odds2Sportsbook1 + odds2Sportsbook1 * profit));
+            const bet2 = (profit / (odds2Sportsbook2 * odds1Sportsbook1 + odds1Sportsbook2 * odds2Sportsbook1 + odds2Sportsbook2 * profit));
 
             const resultElement = document.getElementById("result");
-            resultElement.innerHTML = `You should bet $${bet1.toFixed(2)} on the first outcome and $${bet2.toFixed(2)} on the second outcome.`;
+            resultElement.innerHTML = `You should bet $${bet1.toFixed(2)} on Sportsbook 1 and $${bet2.toFixed(2)} on Sportsbook 2.`;
         }
     </script>
 </body>
