@@ -19,8 +19,8 @@
     <label for="odds2-sportsbook2">Odds for the second outcome on Sportsbook 2 (American format):</label>
     <input type="number" id="odds2-sportsbook2" step="0.01"><br>
 
-    <label for="profit">Desired profit:</label>
-    <input type="number" id="profit" value="100"><br>
+    <label for="budget">Budget (how much money you have):</label>
+    <input type="number" id="budget" step="0.01"><br>
 
     <button onclick="calculateArbitrage()">Calculate</button>
 
@@ -41,13 +41,21 @@
             const odds2Sportsbook1 = americanToDecimal(parseFloat(document.getElementById("odds2-sportsbook1").value));
             const odds1Sportsbook2 = americanToDecimal(parseFloat(document.getElementById("odds1-sportsbook2").value));
             const odds2Sportsbook2 = americanToDecimal(parseFloat(document.getElementById("odds2-sportsbook2").value));
-            const profit = parseFloat(document.getElementById("profit").value);
+            const budget = parseFloat(document.getElementById("budget").value);
 
-            const bet1 = (profit / (odds1Sportsbook1 * odds2Sportsbook2 + odds1Sportsbook2 * odds2Sportsbook1 + odds2Sportsbook1 * profit));
-            const bet2 = (profit / (odds2Sportsbook2 * odds1Sportsbook1 + odds1Sportsbook2 * odds2Sportsbook1 + odds2Sportsbook2 * profit));
+            const totalInvestment = (budget / (odds1Sportsbook1 + odds2Sportsbook2 + odds1Sportsbook2 + odds2Sportsbook1));
+            const bet1Sportsbook1 = totalInvestment * (odds1Sportsbook1 / (odds1Sportsbook1 + odds2Sportsbook2));
+            const bet2Sportsbook1 = totalInvestment * (odds2Sportsbook2 / (odds1Sportsbook1 + odds2Sportsbook2));
+            const bet1Sportsbook2 = totalInvestment * (odds1Sportsbook2 / (odds1Sportsbook2 + odds2Sportsbook1));
+            const bet2Sportsbook2 = totalInvestment * (odds2Sportsbook1 / (odds1Sportsbook2 + odds2Sportsbook1));
+
+            const profitSportsbook1 = bet1Sportsbook1 * odds1Sportsbook1 - totalInvestment;
+            const profitSportsbook2 = bet2Sportsbook2 * odds2Sportsbook2 - totalInvestment;
+
+            const totalProfit = profitSportsbook1 + profitSportsbook2;
 
             const resultElement = document.getElementById("result");
-            resultElement.innerHTML = `You should bet $${bet1.toFixed(2)} on Sportsbook 1 and $${bet2.toFixed(2)} on Sportsbook 2.`;
+            resultElement.innerHTML = `You should bet $${bet1Sportsbook1.toFixed(2)} on Sportsbook 1 and $${bet2Sportsbook2.toFixed(2)} on Sportsbook 2. You will make a profit of $${totalProfit.toFixed(2)}.`;
         }
     </script>
 </body>
