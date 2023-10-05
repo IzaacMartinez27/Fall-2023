@@ -11,7 +11,7 @@
             color: red;
         }
         .under-budget {
-            color: green;
+            color: black;
         }
     </style>
 </head>
@@ -157,9 +157,11 @@
 
                 if (overages.length > 0) {
                     budgetOverUnderElement.textContent = `Over Budget: ${overages.join(", ")}`;
+                    budgetOverUnderElement.classList.remove("under-budget");
                     budgetOverUnderElement.classList.add("over-budget");
                 } else {
                     budgetOverUnderElement.textContent = "Under Budget";
+                    budgetOverUnderElement.classList.remove("over-budget");
                     budgetOverUnderElement.classList.add("under-budget");
                 }
 
