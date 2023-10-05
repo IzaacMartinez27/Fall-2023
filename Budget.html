@@ -1,184 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Define CSS styles for over and under budget */
-        .over-budget {
-            color: red;
-        }
-        .under-budget {
-            color: black;
-        }
+<!-- ... (previous HTML and CSS code remains unchanged) ... -->
 
-        /* Center the budget status */
-        #budget-status-container {
-            text-align: center;
-            margin-top: 20px; /* Adjust the margin as needed */
-            background-color: #f0f0f0; /* Background color for the container */
-            border-radius: 10px; /* Rounded corners */
-            padding: 10px; /* Padding around the content */
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Budget Tracker</h1>
-    </header>
-    <main>
-        <section id="income-form">
-            <h2>Enter Your Monthly Net Income</h2>
-            <form id="income-input-form">
-                <label for="income-amount">Monthly Income:</label>
-                <input type="number" id="income-amount" name="income-amount" required>
-                <button type="submit">Calculate Budget</button>
-            </form>
-        </section>
-        <section id="budget-details" style="display:none;">
-            <h2>Budget Details</h2>
-            <p>Needs (50%): <span id="needs-amount">$0.00</span></p>
-            <p>Savings (20%): <span id="savings-amount">$0.00</span></p>
-            <p>Wants (30%): <span id="wants-amount">$0.00</span></p>
-        </section>
-        <section id="expense-form" style="display:none;">
-            <h2>Add Expense</h2>
-            <form id="expense-input-form">
-                <label for="expense-name">Expense Name:</label>
-                <input type="text" id="expense-name" name="expense-name" required>
+<section id="budget-status-container" style="display:none;">
+    <h2>Budget Status</h2>
+    <p>Needs: <span id="spent-needs" class="under-budget">$0.00</span></p>
+    <p>Savings: <span id="spent-savings" class="under-budget">$0.00</span></p>
+    <p>Wants: <span id="spent-wants" class="under-budget">$0.00</span></p>
+    <p>Total Spent: <span id="total-spent">$0.00</span></p>
+    <p id="budget-over-under" class="under-budget"></p>
+    <p id="money-left-needs" class="under-budget"></p>
+    <p id="money-left-savings" class="under-budget"></p>
+    <p id="money-left-wants" class="under-budget"></p>
+</section>
 
-                <label for="expense-amount">Amount:</label>
-                <input type="number" id="expense-amount" name="expense-amount" required>
+<!-- ... (rest of the code remains unchanged) ... -->
 
-                <button type="button" id="add-expense">Add Expense</button>
-            </form>
-            <label for="expense-category">Expense Category:</label>
-            <select id="expense-category" name="expense-category">
-                <option value="needs">Needs</option>
-                <option value="savings">Savings</option>
-                <option value="wants">Wants</option>
-            </select>
-        </section>
-        <section id="expense-list">
-            <h2>Expense List</h2>
-            <ul>
-                <!-- Expense items will be dynamically added here -->
-            </ul>
-        </section>
-        <section id="budget-status-container" style="display:none;">
-            <h2>Budget Status</h2>
-            <p>Needs: <span id="spent-needs" class="under-budget">$0.00</span></p>
-            <p>Savings: <span id="spent-savings" class="under-budget">$0.00</span></p>
-            <p>Wants: <span id="spent-wants" class="under-budget">$0.00</span></p>
-            <p>Total Spent: <span id="total-spent">$0.00</span></p>
-            <p id="budget-over-under" class="under-budget"></p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Budget Tracker</p>
-    </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const incomeForm = document.querySelector("#income-input-form");
-            const budgetDetails = document.querySelector("#budget-details");
-            const expenseForm = document.querySelector("#expense-form");
-            const expenseList = document.querySelector("#expense-list ul");
-            const addExpenseButton = document.querySelector("#add-expense");
-            const budgetStatusContainer = document.querySelector("#budget-status-container");
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const incomeForm = document.querySelector("#income-input-form");
+        const budgetDetails = document.querySelector("#budget-details");
+        const expenseForm = document.querySelector("#expense-form");
+        const expenseList = document.querySelector("#expense-list ul");
+        const addExpenseButton = document.querySelector("#add-expense");
+        const budgetStatusContainer = document.querySelector("#budget-status-container");
 
-            let monthlyIncome = 0;
-            let needsBudget = 0;
-            let savingsBudget = 0;
-            let wantsBudget = 0;
-            let spentNeeds = 0;
-            let spentSavings = 0;
-            let spentWants = 0;
+        let monthlyIncome = 0;
+        let needsBudget = 0;
+        let savingsBudget = 0;
+        let wantsBudget = 0;
+        let spentNeeds = 0;
+        let spentSavings = 0;
+        let spentWants = 0;
 
-            incomeForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                monthlyIncome = parseFloat(document.querySelector("#income-amount").value);
-                if (!isNaN(monthlyIncome) && monthlyIncome > 0) {
-                    calculateBudget();
-                }
-            });
-
-            addExpenseButton.addEventListener("click", () => {
-                const expenseName = document.querySelector("#expense-name").value;
-                const expenseAmount = parseFloat(document.querySelector("#expense-amount").value);
-                const expenseCategory = document.querySelector("#expense-category").value;
-
-                if (expenseName && !isNaN(expenseAmount) && expenseAmount > 0) {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = `${expenseCategory.toUpperCase()}: ${expenseName} - $${expenseAmount.toFixed(2)}`;
-                    expenseList.appendChild(listItem);
-
-                    // Deduct the expense from the corresponding budget category
-                    if (expenseCategory === "needs") {
-                        spentNeeds += expenseAmount;
-                    } else if (expenseCategory === "savings") {
-                        spentSavings += expenseAmount;
-                    } else if (expenseCategory === "wants") {
-                        spentWants += expenseAmount;
-                    }
-
-                    calculateBudget();
-                    // You can add code here to store the expense data in a database.
-
-                    // Clear the input fields
-                    document.querySelector("#expense-name").value = "";
-                    document.querySelector("#expense-amount").value = "";
-                }
-            });
-
-            function calculateBudget() {
-                needsBudget = (monthlyIncome * 0.5).toFixed(2);
-                savingsBudget = (monthlyIncome * 0.2).toFixed(2);
-                wantsBudget = (monthlyIncome * 0.3).toFixed(2);
-
-                document.querySelector("#needs-amount").textContent = `$${needsBudget}`;
-                document.querySelector("#savings-amount").textContent = `$${savingsBudget}`;
-                document.querySelector("#wants-amount").textContent = `$${wantsBudget}`;
-                document.querySelector("#spent-needs").textContent = `$${spentNeeds.toFixed(2)}`;
-                document.querySelector("#spent-savings").textContent = `$${spentSavings.toFixed(2)}`;
-                document.querySelector("#spent-wants").textContent = `$${spentWants.toFixed(2)}`;
-
-                const totalSpent = spentNeeds + spentSavings + spentWants;
-                document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
-
-                const budgetOverUnder = monthlyIncome - totalSpent;
-                const budgetOverUnderElement = document.querySelector("#budget-over-under");
-
-                budgetOverUnderElement.textContent = "";
-
-                // Check for overages in each category
-                const overages = [];
-                if (spentNeeds > needsBudget) {
-                    overages.push(`Needs: $${(spentNeeds - needsBudget).toFixed(2)} over`);
-                }
-                if (spentSavings > savingsBudget) {
-                    overages.push(`Savings: $${(spentSavings - savingsBudget).toFixed(2)} over`);
-                }
-                if (spentWants > wantsBudget) {
-                    overages.push(`Wants: $${(spentWants - wantsBudget).toFixed(2)} over`);
-                }
-
-                if (overages.length > 0) {
-                    budgetOverUnderElement.textContent = `Over Budget: ${overages.join(", ")}`;
-                    budgetOverUnderElement.classList.remove("under-budget");
-                    budgetOverUnderElement.classList.add("over-budget");
-                } else {
-                    budgetOverUnderElement.textContent = "Under Budget";
-                    budgetOverUnderElement.classList.remove("over-budget");
-                    budgetOverUnderElement.classList.add("under-budget");
-                }
-
-                budgetDetails.style.display = "block";
-                expenseForm.style.display = "block";
-                budgetStatusContainer.style.display = "block";
+        incomeForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            monthlyIncome = parseFloat(document.querySelector("#income-amount").value);
+            if (!isNaN(monthlyIncome) && monthlyIncome > 0) {
+                calculateBudget();
             }
         });
-    </script>
+
+        addExpenseButton.addEventListener("click", () => {
+            const expenseName = document.querySelector("#expense-name").value;
+            const expenseAmount = parseFloat(document.querySelector("#expense-amount").value);
+            const expenseCategory = document.querySelector("#expense-category").value;
+
+            if (expenseName && !isNaN(expenseAmount) && expenseAmount > 0) {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${expenseCategory.toUpperCase()}: ${expenseName} - $${expenseAmount.toFixed(2)}`;
+                expenseList.appendChild(listItem);
+
+                // Deduct the expense from the corresponding budget category
+                if (expenseCategory === "needs") {
+                    spentNeeds += expenseAmount;
+                } else if (expenseCategory === "savings") {
+                    spentSavings += expenseAmount;
+                } else if (expenseCategory === "wants") {
+                    spentWants += expenseAmount;
+                }
+
+                calculateBudget();
+                // You can add code here to store the expense data in a database.
+
+                // Clear the input fields
+                document.querySelector("#expense-name").value = "";
+                document.querySelector("#expense-amount").value = "";
+            }
+        });
+
+        function calculateBudget() {
+            needsBudget = (monthlyIncome * 0.5).toFixed(2);
+            savingsBudget = (monthlyIncome * 0.2).toFixed(2);
+            wantsBudget = (monthlyIncome * 0.3).toFixed(2);
+
+            document.querySelector("#needs-amount").textContent = `$${needsBudget}`;
+            document.querySelector("#savings-amount").textContent = `$${savingsBudget}`;
+            document.querySelector("#wants-amount").textContent = `$${wantsBudget}`;
+            document.querySelector("#spent-needs").textContent = `$${spentNeeds.toFixed(2)}`;
+            document.querySelector("#spent-savings").textContent = `$${spentSavings.toFixed(2)}`;
+            document.querySelector("#spent-wants").textContent = `$${spentWants.toFixed(2)}`;
+
+            const totalSpent = spentNeeds + spentSavings + spentWants;
+            document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
+
+            const budgetOverUnder = monthlyIncome - totalSpent;
+            const budgetOverUnderElement = document.querySelector("#budget-over-under");
+
+            budgetOverUnderElement.textContent = "";
+
+            // Check for overages in each category
+            const overages = [];
+            if (spentNeeds > needsBudget) {
+                overages.push(`Needs: $${(spentNeeds - needsBudget).toFixed(2)} over`);
+            }
+            if (spentSavings > savingsBudget) {
+                overages.push(`Savings: $${(spentSavings - savingsBudget).toFixed(2)} over`);
+            }
+            if (spentWants > wantsBudget) {
+                overages.push(`Wants: $${(spentWants - wantsBudget).toFixed(2)} over`);
+            }
+
+            if (overages.length > 0) {
+                budgetOverUnderElement.textContent = `Over Budget: ${overages.join(", ")}`;
+                budgetOverUnderElement.classList.remove("under-budget");
+                budgetOverUnderElement.classList.add("over-budget");
+            } else {
+                budgetOverUnderElement.textContent = "Under Budget";
+                budgetOverUnderElement.classList.remove("over-budget");
+                budgetOverUnderElement.classList.add("under-budget");
+            }
+
+            budgetDetails.style.display = "block";
+            expenseForm.style.display = "block";
+            budgetStatusContainer.style.display = "block";
+
+            // Calculate money left for each category and display it
+            const moneyLeftNeeds = needsBudget - spentNeeds;
+            const moneyLeftSavings = savingsBudget - spentSavings;
+            const moneyLeftWants = wantsBudget - spentWants;
+
+            document.querySelector("#money-left-needs").textContent = `Money Left: $${moneyLeftNeeds.toFixed(2)}`;
+            document.querySelector("#money-left-savings").textContent = `Money Left: $${moneyLeftSavings.toFixed(2)}`;
+            document.querySelector("#money-left-wants").textContent = `Money Left: $${moneyLeftWants.toFixed(2)}`;
+
+            // Style the money left text based on conditions
+            if (moneyLeftNeeds === 0) {
+                document.querySelector("#money-left-needs").classList.remove("under-budget");
+                document.querySelector("#money-left-needs").classList.add("on-budget");
+            } else if (moneyLeftNeeds > 0) {
+                document.querySelector("#money-left-needs").classList.remove("on-budget");
+                document.querySelector("#money-left-needs").classList.add("under-budget");
+            }
+
+            if (moneyLeftSavings === 0) {
+                document.querySelector("#money-left-savings").classList.remove("under-budget");
+                document.querySelector("#money-left-savings").classList.add("on-budget");
+            } else if (moneyLeftSavings > 0) {
+                document.querySelector("#money-left-savings").classList.remove("on-budget");
+                document.querySelector("#money-left-savings").classList.add("under-budget");
+            }
+
+            if (moneyLeftWants === 0) {
+                document.querySelector("#money-left-wants").classList.remove("under-budget");
+                document.querySelector("#money-left-wants").classList.add("on-budget");
+            } else if (moneyLeftWants > 0) {
+                document.querySelector("#money-left-wants").classList.remove("on-budget");
+                document.querySelector("#money-left-wants").classList.add("under-budget");
+            }
+        }
+    });
+</script>
 </body>
 </html>
