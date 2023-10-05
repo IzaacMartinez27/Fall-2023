@@ -49,6 +49,14 @@
                 <!-- Expense items will be dynamically added here -->
             </ul>
         </section>
+        <section id="budget-status" style="display:none;">
+            <h2>Budget Status</h2>
+            <p>Needs: <span id="spent-needs">$0.00</span></p>
+            <p>Savings: <span id="spent-savings">$0.00</span></p>
+            <p>Wants: <span id="spent-wants">$0.00</span></p>
+            <p>Total Spent: <span id="total-spent">$0.00</span></p>
+            <p>Budget Over/Under: <span id="budget-over-under">$0.00</span></p>
+        </section>
     </main>
     <footer>
         <p>&copy; 2023 Budget Tracker</p>
@@ -60,11 +68,15 @@
             const expenseForm = document.querySelector("#expense-form");
             const expenseList = document.querySelector("#expense-list ul");
             const addExpenseButton = document.querySelector("#add-expense");
+            const budgetStatus = document.querySelector("#budget-status");
 
             let monthlyIncome = 0;
             let needsBudget = 0;
             let savingsBudget = 0;
             let wantsBudget = 0;
+            let spentNeeds = 0;
+            let spentSavings = 0;
+            let spentWants = 0;
 
             incomeForm.addEventListener("submit", (e) => {
                 e.preventDefault();
@@ -86,11 +98,11 @@
 
                     // Deduct the expense from the corresponding budget category
                     if (expenseCategory === "needs") {
-                        needsBudget += expenseAmount;
+                        spentNeeds += expenseAmount;
                     } else if (expenseCategory === "savings") {
-                        savingsBudget += expenseAmount;
+                        spentSavings += expenseAmount;
                     } else if (expenseCategory === "wants") {
-                        wantsBudget += expenseAmount;
+                        spentWants += expenseAmount;
                     }
 
                     calculateBudget();
@@ -110,9 +122,19 @@
                 document.querySelector("#needs-amount").textContent = `$${needsBudget}`;
                 document.querySelector("#savings-amount").textContent = `$${savingsBudget}`;
                 document.querySelector("#wants-amount").textContent = `$${wantsBudget}`;
+                document.querySelector("#spent-needs").textContent = `$${spentNeeds.toFixed(2)}`;
+                document.querySelector("#spent-savings").textContent = `$${spentSavings.toFixed(2)}`;
+                document.querySelector("#spent-wants").textContent = `$${spentWants.toFixed(2)}`;
+
+                const totalSpent = spentNeeds + spentSavings + spentWants;
+                document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
+
+                const budgetOverUnder = totalSpent - (needsBudget + savingsBudget + wantsBudget);
+                document.querySelector("#budget-over-under").textContent = `$${budgetOverUnder.toFixed(2)}`;
 
                 budgetDetails.style.display = "block";
                 expenseForm.style.display = "block";
+                budgetStatus.style.display = "block";
             }
         });
     </script>
