@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget Tracker</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Define CSS styles for over and under budget */
+        .over-budget {
+            color: red;
+        }
+        .under-budget {
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -55,7 +64,7 @@
             <p>Savings: <span id="spent-savings">$0.00</span></p>
             <p>Wants: <span id="spent-wants">$0.00</span></p>
             <p>Total Spent: <span id="total-spent">$0.00</span></p>
-            <p>Budget Over/Under: <span id="budget-over-under">$0.00</span></p>
+            <p>Budget Over/Under: <span id="budget-over-under" class="under-budget">$0.00</span></p>
         </section>
     </main>
     <footer>
@@ -130,7 +139,18 @@
                 document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
 
                 const budgetOverUnder = totalSpent - (needsBudget + savingsBudget + wantsBudget);
-                document.querySelector("#budget-over-under").textContent = `$${budgetOverUnder.toFixed(2)}`;
+                const budgetOverUnderElement = document.querySelector("#budget-over-under");
+
+                budgetOverUnderElement.textContent = `$${budgetOverUnder.toFixed(2)}`;
+
+                // Update the text color based on whether it's over or under the budget
+                if (budgetOverUnder > 0) {
+                    budgetOverUnderElement.classList.remove("under-budget");
+                    budgetOverUnderElement.classList.add("over-budget");
+                } else {
+                    budgetOverUnderElement.classList.remove("over-budget");
+                    budgetOverUnderElement.classList.add("under-budget");
+                }
 
                 budgetDetails.style.display = "block";
                 expenseForm.style.display = "block";
