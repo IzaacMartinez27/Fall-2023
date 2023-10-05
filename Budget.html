@@ -15,9 +15,12 @@
         }
 
         /* Center the budget status */
-        #budget-status {
+        #budget-status-container {
             text-align: center;
             margin-top: 20px; /* Adjust the margin as needed */
+            background-color: #f0f0f0; /* Background color for the container */
+            border-radius: 10px; /* Rounded corners */
+            padding: 10px; /* Padding around the content */
         }
     </style>
 </head>
@@ -64,7 +67,7 @@
                 <!-- Expense items will be dynamically added here -->
             </ul>
         </section>
-        <section id="budget-status" style="display:none;">
+        <section id="budget-status-container" style="display:none;">
             <h2>Budget Status</h2>
             <p>Needs: <span id="spent-needs" class="under-budget">$0.00</span></p>
             <p>Savings: <span id="spent-savings" class="under-budget">$0.00</span></p>
@@ -83,7 +86,7 @@
             const expenseForm = document.querySelector("#expense-form");
             const expenseList = document.querySelector("#expense-list ul");
             const addExpenseButton = document.querySelector("#add-expense");
-            const budgetStatus = document.querySelector("#budget-status");
+            const budgetStatusContainer = document.querySelector("#budget-status-container");
 
             let monthlyIncome = 0;
             let needsBudget = 0;
@@ -173,7 +176,7 @@
 
                 budgetDetails.style.display = "block";
                 expenseForm.style.display = "block";
-                budgetStatus.style.display = "block";
+                budgetStatusContainer.style.display = "block";
             }
         });
     </script>
