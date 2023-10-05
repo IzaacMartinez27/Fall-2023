@@ -143,17 +143,6 @@
 
                 budgetOverUnderElement.textContent = "";
 
-                // Update the text color based on whether it's over or under the budget
-                if (budgetOverUnder < 0) {
-                    budgetOverUnderElement.classList.remove("under-budget");
-                    budgetOverUnderElement.classList.add("over-budget");
-                    budgetOverUnderElement.textContent = `Over Budget: $${Math.abs(budgetOverUnder).toFixed(2)}`;
-                } else {
-                    budgetOverUnderElement.classList.remove("over-budget");
-                    budgetOverUnderElement.classList.add("under-budget");
-                    budgetOverUnderElement.textContent = `Under Budget: $${budgetOverUnder.toFixed(2)}`;
-                }
-
                 // Check for overages in each category
                 const overages = [];
                 if (spentNeeds > needsBudget) {
@@ -167,7 +156,11 @@
                 }
 
                 if (overages.length > 0) {
-                    budgetOverUnderElement.textContent += ` (${overages.join(", ")})`;
+                    budgetOverUnderElement.textContent = `Over Budget: ${overages.join(", ")}`;
+                    budgetOverUnderElement.classList.add("over-budget");
+                } else {
+                    budgetOverUnderElement.textContent = "Under Budget";
+                    budgetOverUnderElement.classList.add("under-budget");
                 }
 
                 budgetDetails.style.display = "block";
