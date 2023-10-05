@@ -154,6 +154,22 @@
                     budgetOverUnderElement.textContent = `Under Budget: $${budgetOverUnder.toFixed(2)}`;
                 }
 
+                // Check for overages in each category
+                const overages = [];
+                if (spentNeeds > needsBudget) {
+                    overages.push(`Needs: $${(spentNeeds - needsBudget).toFixed(2)} over`);
+                }
+                if (spentSavings > savingsBudget) {
+                    overages.push(`Savings: $${(spentSavings - savingsBudget).toFixed(2)} over`);
+                }
+                if (spentWants > wantsBudget) {
+                    overages.push(`Wants: $${(spentWants - wantsBudget).toFixed(2)} over`);
+                }
+
+                if (overages.length > 0) {
+                    budgetOverUnderElement.textContent += ` (${overages.join(", ")})`;
+                }
+
                 budgetDetails.style.display = "block";
                 expenseForm.style.display = "block";
                 budgetStatus.style.display = "block";
