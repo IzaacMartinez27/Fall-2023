@@ -60,9 +60,9 @@
         </section>
         <section id="budget-status" style="display:none;">
             <h2>Budget Status</h2>
-            <p>Needs: <span id="spent-needs">$0.00</span></p>
-            <p>Savings: <span id="spent-savings">$0.00</span></p>
-            <p>Wants: <span id="spent-wants">$0.00</span></p>
+            <p>Needs: <span id="spent-needs" class="under-budget">$0.00</span></p>
+            <p>Savings: <span id="spent-savings" class="under-budget">$0.00</span></p>
+            <p>Wants: <span id="spent-wants" class="under-budget">$0.00</span></p>
             <p>Total Spent: <span id="total-spent">$0.00</span></p>
             <p id="budget-over-under" class="under-budget"></p>
         </section>
@@ -157,17 +157,6 @@
                 budgetDetails.style.display = "block";
                 expenseForm.style.display = "block";
                 budgetStatus.style.display = "block";
-
-                // Check for overages
-                if (spentNeeds > needsBudget) {
-                    alert("You have exceeded your budget for 'Needs' category.");
-                }
-                if (spentSavings > savingsBudget) {
-                    alert("You have exceeded your budget for 'Savings' category.");
-                }
-                if (spentWants > wantsBudget) {
-                    alert("You have exceeded your budget for 'Wants' category.");
-                }
             }
         });
     </script>
