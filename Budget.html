@@ -28,18 +28,18 @@
         <section id="expense-form" style="display:none;">
             <h2>Add Expense</h2>
             <form id="expense-input-form">
+                <label for="expense-name">Expense Name:</label>
+                <input type="text" id="expense-name" name="expense-name" required>
+
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" name="expense-amount" required>
+
                 <label for="expense-category">Expense Category:</label>
                 <select id="expense-category" name="expense-category">
                     <option value="needs">Needs</option>
                     <option value="savings">Savings</option>
                     <option value="wants">Wants</option>
                 </select>
-
-                <label for="expense-name">Expense Name:</label>
-                <input type="text" id="expense-name" name="expense-name" required>
-
-                <label for="expense-amount">Amount:</label>
-                <input type="number" id="expense-amount" name="expense-amount" required>
 
                 <button type="submit">Add Expense</button>
             </form>
@@ -58,7 +58,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             const incomeForm = document.querySelector("#income-input-form");
             const budgetDetails = document.querySelector("#budget-details");
-            const expenseForm = document.querySelector("#expense-form form");
+            const expenseForm = document.querySelector("#expense-input-form");
             const expenseList = document.querySelector("#expense-list ul");
 
             let monthlyIncome = 0;
@@ -76,22 +76,22 @@
 
             expenseForm.addEventListener("submit", (e) => {
                 e.preventDefault();
-                const expenseCategory = document.querySelector("#expense-category").value;
                 const expenseName = document.querySelector("#expense-name").value;
                 const expenseAmount = parseFloat(document.querySelector("#expense-amount").value);
+                const expenseCategory = document.querySelector("#expense-category").value;
 
-                if (expenseCategory && expenseName && !isNaN(expenseAmount) && expenseAmount > 0) {
+                if (expenseName && !isNaN(expenseAmount) && expenseAmount > 0) {
                     const listItem = document.createElement("li");
                     listItem.textContent = `${expenseCategory.toUpperCase()}: ${expenseName} - $${expenseAmount.toFixed(2)}`;
                     expenseList.appendChild(listItem);
 
                     // Deduct the expense from the corresponding budget category
                     if (expenseCategory === "needs") {
-                        needsBudget -= expenseAmount;
+                        needsBudget += expenseAmount;
                     } else if (expenseCategory === "savings") {
-                        savingsBudget -= expenseAmount;
+                        savingsBudget += expenseAmount;
                     } else if (expenseCategory === "wants") {
-                        wantsBudget -= expenseAmount;
+                        wantsBudget += expenseAmount;
                     }
 
                     calculateBudget();
