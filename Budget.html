@@ -138,13 +138,13 @@
                 const totalSpent = spentNeeds + spentSavings + spentWants;
                 document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
 
-                const budgetOverUnder = totalSpent - (needsBudget + savingsBudget + wantsBudget);
+                const budgetOverUnder = monthlyIncome - totalSpent;
                 const budgetOverUnderElement = document.querySelector("#budget-over-under");
 
                 budgetOverUnderElement.textContent = `$${budgetOverUnder.toFixed(2)}`;
 
                 // Update the text color based on whether it's over or under the budget
-                if (budgetOverUnder > 0) {
+                if (budgetOverUnder < 0) {
                     budgetOverUnderElement.classList.remove("under-budget");
                     budgetOverUnderElement.classList.add("over-budget");
                 } else {
