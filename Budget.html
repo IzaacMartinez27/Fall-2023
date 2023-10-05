@@ -34,15 +34,14 @@
                 <label for="expense-amount">Amount:</label>
                 <input type="number" id="expense-amount" name="expense-amount" required>
 
-                <label for="expense-category">Expense Category:</label>
-                <select id="expense-category" name="expense-category">
-                    <option value="needs">Needs</option>
-                    <option value="savings">Savings</option>
-                    <option value="wants">Wants</option>
-                </select>
-
-                <button type="submit">Add Expense</button>
+                <button type="button" id="add-expense">Add Expense</button>
             </form>
+            <label for="expense-category">Expense Category:</label>
+            <select id="expense-category" name="expense-category">
+                <option value="needs">Needs</option>
+                <option value="savings">Savings</option>
+                <option value="wants">Wants</option>
+            </select>
         </section>
         <section id="expense-list">
             <h2>Expense List</h2>
@@ -58,8 +57,9 @@
         document.addEventListener("DOMContentLoaded", () => {
             const incomeForm = document.querySelector("#income-input-form");
             const budgetDetails = document.querySelector("#budget-details");
-            const expenseForm = document.querySelector("#expense-input-form");
+            const expenseForm = document.querySelector("#expense-form");
             const expenseList = document.querySelector("#expense-list ul");
+            const addExpenseButton = document.querySelector("#add-expense");
 
             let monthlyIncome = 0;
             let needsBudget = 0;
@@ -74,8 +74,7 @@
                 }
             });
 
-            expenseForm.addEventListener("submit", (e) => {
-                e.preventDefault();
+            addExpenseButton.addEventListener("click", () => {
                 const expenseName = document.querySelector("#expense-name").value;
                 const expenseAmount = parseFloat(document.querySelector("#expense-amount").value);
                 const expenseCategory = document.querySelector("#expense-category").value;
@@ -96,6 +95,10 @@
 
                     calculateBudget();
                     // You can add code here to store the expense data in a database.
+
+                    // Clear the input fields
+                    document.querySelector("#expense-name").value = "";
+                    document.querySelector("#expense-amount").value = "";
                 }
             });
 
