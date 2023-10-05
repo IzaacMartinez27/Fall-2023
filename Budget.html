@@ -64,7 +64,7 @@
             <p>Savings: <span id="spent-savings">$0.00</span></p>
             <p>Wants: <span id="spent-wants">$0.00</span></p>
             <p>Total Spent: <span id="total-spent">$0.00</span></p>
-            <p>Budget Over/Under: <span id="budget-over-under" class="under-budget">$0.00</span></p>
+            <p id="budget-over-under" class="under-budget"></p>
         </section>
     </main>
     <footer>
@@ -141,15 +141,17 @@
                 const budgetOverUnder = monthlyIncome - totalSpent;
                 const budgetOverUnderElement = document.querySelector("#budget-over-under");
 
-                budgetOverUnderElement.textContent = `$${budgetOverUnder.toFixed(2)}`;
+                budgetOverUnderElement.textContent = "";
 
                 // Update the text color based on whether it's over or under the budget
                 if (budgetOverUnder < 0) {
                     budgetOverUnderElement.classList.remove("under-budget");
                     budgetOverUnderElement.classList.add("over-budget");
+                    budgetOverUnderElement.textContent = `Over Budget: $${Math.abs(budgetOverUnder).toFixed(2)}`;
                 } else {
                     budgetOverUnderElement.classList.remove("over-budget");
                     budgetOverUnderElement.classList.add("under-budget");
+                    budgetOverUnderElement.textContent = `Under Budget: $${budgetOverUnder.toFixed(2)}`;
                 }
 
                 budgetDetails.style.display = "block";
