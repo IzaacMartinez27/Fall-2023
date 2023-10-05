@@ -117,26 +117,4 @@
             function calculateBudget() {
                 needsBudget = (monthlyIncome * 0.5).toFixed(2);
                 savingsBudget = (monthlyIncome * 0.2).toFixed(2);
-                wantsBudget = (monthlyIncome * 0.3).toFixed(2);
-
-                document.querySelector("#needs-amount").textContent = `$${needsBudget}`;
-                document.querySelector("#savings-amount").textContent = `$${savingsBudget}`;
-                document.querySelector("#wants-amount").textContent = `$${wantsBudget}`;
-                document.querySelector("#spent-needs").textContent = `$${spentNeeds.toFixed(2)}`;
-                document.querySelector("#spent-savings").textContent = `$${spentSavings.toFixed(2)}`;
-                document.querySelector("#spent-wants").textContent = `$${spentWants.toFixed(2)}`;
-
-                const totalSpent = spentNeeds + spentSavings + spentWants;
-                document.querySelector("#total-spent").textContent = `$${totalSpent.toFixed(2)}`;
-
-                const budgetOverUnder = totalSpent - (needsBudget + savingsBudget + wantsBudget);
-                document.querySelector("#budget-over-under").textContent = `$${budgetOverUnder.toFixed(2)}`;
-
-                budgetDetails.style.display = "block";
-                expenseForm.style.display = "block";
-                budgetStatus.style.display = "block";
-            }
-        });
-    </script>
-</body>
-</html>
+                wantsBudget = (monthlyIncome * 0.
