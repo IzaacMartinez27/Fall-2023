@@ -1,14 +1,42 @@
 ##  Problem Set 2
 
-# 1.) Load an RGB image of your choice from a URL, Resize the image to 224x224, Show a grayscale copy
+## [Colab link](https://colab.research.google.com/drive/1DMP2UWWTSI4lwfU1TNA0L9OfLd821g10?usp=sharing) 
+
+# Needed Imports
 ```Python
+import numpy as np
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+import IPython
 import requests
 from PIL import Image
 from io import BytesIO
-import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+import imageio as io
+```
 
+# Plot the image and show image size
+```Python
+def plot(x):
+    fig, ax = plt.subplots()
+    im = ax.imshow(x, cmap = 'gray')
+    ax.axis('off')
+    fig.set_size_inches(5, 5)
+    plt.show()
 
+image = io.imread("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRcbLjcZKWWHRRpf5gdOSCI78jLz3gpNgL67AcTD3zFE-zU_GTG")
 
+image = image[:,:,:]
+
+plot(image)
+
+image.size
+```
+
+# Load an RGB image of your choice from a URL, Resize the image to 224x224, and Show a grayscale copy
+```Python
 # Define the URL of the image
 image_url = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRcbLjcZKWWHRRpf5gdOSCI78jLz3gpNgL67AcTD3zFE-zU_GTG'  # Replace with the URL of your image
 
@@ -36,15 +64,8 @@ plt.axis('off')
 
 plt.show()
 ```
-# 2.) Convolve with 10 random filters and show filters and features maps for each
+# Convolve with 10 random filters and show filters and features maps for each
 ```Python
-import numpy as np
-import matplotlib.pyplot as plt
-import requests
-from PIL import Image
-import cv2
-from IPython.display import display, Image as IPImage, Markdown
-
 # Define the URL of the image
 image_url = 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRcbLjcZKWWHRRpf5gdOSCI78jLz3gpNgL67AcTD3zFE-zU_GTG'  # Replace with the URL of your image
 
