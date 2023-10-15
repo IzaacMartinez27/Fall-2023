@@ -1,4 +1,6 @@
-# MNIST Random Walk Model
+## MNIST Random Walk Model
+
+# [Colab link](https://colab.research.google.com/drive/1_T2aw0E8QeIpqCuOTvYURivzk33ieWDA?usp=sharing)
 
 ## Part 1: Load MNIST and Show Montage
 
