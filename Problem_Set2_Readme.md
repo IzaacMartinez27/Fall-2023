@@ -32,7 +32,7 @@ image = image[:,:,:]
 
 plot(image)
 
-image.size
+image.shape
 ```
 
 # Load an RGB image of your choice from a URL, Resize the image to 224x224, and Show a grayscale copy
